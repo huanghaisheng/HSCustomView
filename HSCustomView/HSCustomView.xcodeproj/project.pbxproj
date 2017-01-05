@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		469C37311E1CBA6900FCCB21 /* HSCustomView.h in Headers */ = {isa = PBXBuildFile; fileRef = 469C372F1E1CBA6900FCCB21 /* HSCustomView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		469C37381E1CC06500FCCB21 /* HSCutomProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469C37371E1CC06500FCCB21 /* HSCutomProgress.swift */; };
+		469C373A1E1EA6FC00FCCB21 /* HSCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469C37391E1EA6FC00FCCB21 /* HSCustomView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -16,6 +17,7 @@
 		469C372F1E1CBA6900FCCB21 /* HSCustomView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCustomView.h; sourceTree = "<group>"; };
 		469C37301E1CBA6900FCCB21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		469C37371E1CC06500FCCB21 /* HSCutomProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSCutomProgress.swift; sourceTree = "<group>"; };
+		469C37391E1EA6FC00FCCB21 /* HSCustomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSCustomView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +53,7 @@
 				469C372F1E1CBA6900FCCB21 /* HSCustomView.h */,
 				469C37301E1CBA6900FCCB21 /* Info.plist */,
 				469C37371E1CC06500FCCB21 /* HSCutomProgress.swift */,
+				469C37391E1EA6FC00FCCB21 /* HSCustomView.swift */,
 			);
 			path = HSCustomView;
 			sourceTree = "<group>";
@@ -136,6 +139,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				469C373A1E1EA6FC00FCCB21 /* HSCustomView.swift in Sources */,
 				469C37381E1CC06500FCCB21 /* HSCutomProgress.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
