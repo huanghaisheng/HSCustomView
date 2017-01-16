@@ -86,6 +86,8 @@ public class HSCustomProgress: UIView {
             self.direction = direction!
         }
         
+        self.createGradientView()
+        
         if isAnimated == true {
             self.isAnimated = true
             if duration != nil {
