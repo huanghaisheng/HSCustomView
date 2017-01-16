@@ -11,7 +11,7 @@ import UIKit
 import CoreFoundation
 
 //MARK:渐变效果的方向
-enum GradientChangeDirection {
+public enum GradientChangeDirection {
 
     case right
     case left
