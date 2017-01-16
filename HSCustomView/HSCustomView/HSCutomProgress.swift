@@ -24,7 +24,7 @@ enum GradientChangeDirection {
     
 }
 
-class HSCustomProgress: UIView {
+public class HSCustomProgress: UIView {
     
     //MARK:进度条百分比，默认为0.0
     var value: CGFloat = 0.0
@@ -54,7 +54,7 @@ class HSCustomProgress: UIView {
         super.init(frame: frame)
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
