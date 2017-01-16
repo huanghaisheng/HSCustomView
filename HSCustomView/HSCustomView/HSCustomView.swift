@@ -9,13 +9,13 @@
 import Foundation
 import UIKit
 
-class HSCustomView: UIView {
+public class HSCustomView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
