@@ -27,7 +27,7 @@ public enum GradientChangeDirection {
 public class HSCustomProgress: UIView {
     
     //MARK:进度条百分比，默认为0.0
-    var value: CGFloat = 0.0 {
+    public var value: CGFloat = 0.0 {
         
         willSet {
             //do something
@@ -44,19 +44,19 @@ public class HSCustomProgress: UIView {
     }
     
     //MARK:渐变的深色，默认为黑色
-    var deepColor: UIColor = UIColor.black
+    public var deepColor: UIColor = UIColor.black
     
     //MARK:渐变的浅色，默认为白色
-    var lightColor: UIColor = UIColor.white
+    public var lightColor: UIColor = UIColor.white
     
     //Mark:当前值的深色
     private var valueColor: UIColor?
     
     //GradientChangeDirection default direction is right
-    var direction: GradientChangeDirection = GradientChangeDirection.right
+    public var direction: GradientChangeDirection = GradientChangeDirection.right
     
     //MARK:是否是圆角，默认是true
-    var isCornerRadius: Bool = true
+    public var isCornerRadius: Bool = true
     
     //MARK:是否动态加载，默认是false
     var isAnimated: Bool = false
@@ -68,7 +68,7 @@ public class HSCustomProgress: UIView {
     var gradientView: UIView?
     
     //MARK:动画的持续时间, 默认时间为1.5秒
-    var duration: TimeInterval = 1.5
+    public var duration: TimeInterval = 1.5
     
     override init(frame: CGRect) {
         super.init(frame: frame)
