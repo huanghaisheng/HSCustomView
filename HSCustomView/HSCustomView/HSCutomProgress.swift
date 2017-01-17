@@ -27,13 +27,30 @@ public enum GradientChangeDirection {
 public class HSCustomProgress: UIView {
     
     //MARK:进度条百分比，默认为0.0
-    var value: CGFloat = 0.0
+    var value: CGFloat = 0.0 {
+        
+        willSet {
+            //do something
+        }
+        
+        didSet {
+            
+            self.createGradientView()
+            
+            if self.isAnimated == true {
+                self.addAnimation(duration: self.duration)
+            }
+        }
+    }
     
     //MARK:渐变的深色，默认为黑色
     var deepColor: UIColor = UIColor.black
     
     //MARK:渐变的浅色，默认为白色
     var lightColor: UIColor = UIColor.white
+    
+    //Mark:当前值的深色
+    private var valueColor: UIColor?
     
     //GradientChangeDirection default direction is right
     var direction: GradientChangeDirection = GradientChangeDirection.right
@@ -50,6 +67,9 @@ public class HSCustomProgress: UIView {
     //MARK:渐变的view，由于caanimation的frame实现不了动画，所以采用了UIView的Animation
     var gradientView: UIView?
     
+    //MARK:动画的持续时间, 默认时间为1.5秒
+    var duration: TimeInterval = 1.5
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -61,8 +81,6 @@ public class HSCustomProgress: UIView {
     convenience init(frame: CGRect, deepColor: UIColor?, lightColor: UIColor?, backgroundColor: UIColor?, value: CGFloat, isCornerRadius: Bool, direction: GradientChangeDirection?, isAnimated: Bool?, duration: TimeInterval?) {
         
         self.init(frame: frame)
-        
-        self.value = value
         
         if deepColor != nil {
             self.deepColor = deepColor!
@@ -90,11 +108,19 @@ public class HSCustomProgress: UIView {
         
         if isAnimated == true {
             self.isAnimated = true
-            if duration != nil {
-                self.addAnimation(duration: duration!)
-            } else {
-                self.addAnimation(duration: 2.5)
-            }
+        }
+        
+        if duration != nil {
+            self.duration = duration!
+        }
+        
+        self.value = value
+        //TODO: 由于不知道什么原因，value的willset和didset方法在初始化方法中没有执行
+        //所以需要执行一次一下的刷新，需要优化
+        self.createGradientView()
+        
+        if self.isAnimated == true {
+            self.addAnimation(duration: self.duration)
         }
     }
     
@@ -108,37 +134,44 @@ public class HSCustomProgress: UIView {
     private func createGradientLayer() -> Void {
         
         if self.value < 1.0 && self.value > 0.0 {
-            self.getDeepColor(deepColor: self.deepColor, lightColor: self.lightColor, value: self.value)
+            self.getCurrentDeepColor(deepColor: self.deepColor, lightColor: self.lightColor, value: self.value)
         }
         
         let gradientColors: [CGColor] = [self.lightColor.cgColor, self.deepColor.cgColor]
-        let gradientLayer: CAGradientLayer = CAGradientLayer()
-        gradientLayer.frame = CGRect.init(x: 0.0, y: 0.0, width: self.frame.width * self.value, height: self.frame.height)
-        gradientLayer.colors = gradientColors
-        self.setChangeDirection(gradientLayer: gradientLayer, direction: self.direction)
-        if self.isCornerRadius == true {
-            gradientLayer.cornerRadius = self.frame.height / 2.0
-        }
-        self.gradientLayer = gradientLayer
+        
+        if self.gradientLayer == nil {
+            let gradientLayer: CAGradientLayer = CAGradientLayer()
+            self.setChangeDirection(gradientLayer: gradientLayer, direction: self.direction)
+            if self.isCornerRadius == true {
+                gradientLayer.cornerRadius = self.frame.height / 2.0
+            }
+            self.gradientLayer = gradientLayer
 
+        }
+        
+        self.gradientLayer!.frame = CGRect.init(x: 0.0, y: 0.0, width: self.frame.width * self.value, height: self.frame.height)
+        self.gradientLayer!.colors = gradientColors
+        
     }
     
     private func createGradientView() -> Void {
         
         self.createGradientLayer()
         
-        let view: UIView = UIView()
-        view.backgroundColor = UIColor.clear
-        view.layer.masksToBounds = true        //TODO: 有可能需要优化，否则多个使用后有可能会出现离屏渲染影响性能效果
-        view.layer.cornerRadius = self.frame.height / 2.0
-        view.frame = CGRect.init(x: 0.0, y: 0.0, width: 0.0, height: self.frame.height)
-        self.addSubview(view)
-        view.layer.addSublayer(self.gradientLayer!)
-        self.gradientView = view
+        if self.gradientView == nil {
+            let view: UIView = UIView()
+            view.backgroundColor = UIColor.clear
+            view.layer.masksToBounds = true        //TODO: 有可能需要优化，否则多个使用后有可能会出现离屏渲染影响性能效果
+            view.layer.cornerRadius = self.frame.height / 2.0
+            view.frame = CGRect.init(x: 0.0, y: 0.0, width: 0.0, height: self.frame.height)
+            self.addSubview(view)
+            view.layer.addSublayer(self.gradientLayer!)
+            self.gradientView = view
+        }
         
     }
     
-    private func getDeepColor(deepColor: UIColor, lightColor: UIColor, value: CGFloat) -> Void {
+    private func getCurrentDeepColor(deepColor: UIColor, lightColor: UIColor, value: CGFloat) -> Void {
         
         let deepColorComponents: [CGFloat] = deepColor.cgColor.components!
         let lightColorComponents: [CGFloat] = lightColor.cgColor.components!
@@ -170,7 +203,7 @@ public class HSCustomProgress: UIView {
             blue = lightColorComponents[2] - (lightColorComponents[2] - deepColorComponents[2]) * value
         }
         
-        self.deepColor = UIColor.init(red: red, green: green, blue: blue, alpha: 1.0)
+        self.valueColor = UIColor.init(red: red, green: green, blue: blue, alpha: 1.0)
         
     }
     
@@ -209,7 +242,7 @@ public class HSCustomProgress: UIView {
         
         UIView.animate(withDuration: duration, animations: { [unowned self] in
             self.gradientView?.frame.size.width = self.frame.width * self.value
-            }, completion: { (finish) in
+        }, completion: { finish in
                 
         })
     }
