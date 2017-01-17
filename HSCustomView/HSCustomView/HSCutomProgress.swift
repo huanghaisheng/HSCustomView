@@ -124,11 +124,12 @@ public class HSCustomProgress: UIView {
         }
     }
     
-    class func create(at superView: UIView, frame: CGRect, deepColor: UIColor?, lightColor: UIColor?, backgroundColor: UIColor?, value: CGFloat, isCornerRadius: Bool, direction: GradientChangeDirection?, isAnimated: Bool?, duration: TimeInterval) -> Void {
+    @discardableResult
+    class func create(at superView: UIView, frame: CGRect, deepColor: UIColor?, lightColor: UIColor?, backgroundColor: UIColor?, value: CGFloat, isCornerRadius: Bool, direction: GradientChangeDirection?, isAnimated: Bool?, duration: TimeInterval) -> HSCustomProgress {
         
         let progress: HSCustomProgress = HSCustomProgress.init(frame: frame, deepColor: deepColor, lightColor: lightColor, backgroundColor: backgroundColor, value: value, isCornerRadius: isCornerRadius, direction: direction, isAnimated: isAnimated, duration: duration)
         superView.addSubview(progress)
-        
+        return progress
     }
     
     private func createGradientLayer() -> Void {

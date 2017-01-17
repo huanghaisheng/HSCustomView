@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "HSCustomView"
-  s.version      = "0.0.6"
+  s.version      = "0.0.7"
   s.summary      = "HSCustomView is my custom view library at working. This will bring convenience for later work."
 
   # This description is used to generate tags and improve search results.
